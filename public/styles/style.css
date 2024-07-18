@@ -106,7 +106,7 @@ header .fa-bars{
     display: flex;
     align-items: center;
     min-height: 100vh;
-    background: url('./images/bg.jpg') no-repeat center center;
+    background: url('../images/bg.jpg') no-repeat center center;
     background-size: cover;
 }
 .home .content{
@@ -380,7 +380,7 @@ header .fa-bars{
     height: 15rem;
     resize: none
 }
-.footer .box-container .box{
+/* .footer .box-container .box{
     flex: 1 1 25rem;
 }
 .footer .box-container .box h3{
@@ -412,7 +412,60 @@ header .fa-bars{
 }
 .footer .credit span{
     color: var(--pink);
+} */
+.footer {
+    border-top: .1rem solid rgba(0, 0, 0, .1);
+    padding: 2rem;
+    background: #f8f9fa;
 }
+
+.footer .box-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.footer .box {
+    flex: 1 1 25rem;
+    margin: 1rem;
+}
+
+.footer .box h3 {
+    color: #333;
+    font-size: 1.5rem;
+    padding: 1rem 0;
+}
+
+.footer .box a {
+    display: block;
+    color: #666;
+    font-size: 1.3rem;
+    padding: 0.5rem 0;
+}
+
+.footer .box a:hover {
+    color: var(--pink);
+    text-decoration: underline;
+}
+
+.footer .box img {
+    margin-top: 1rem;
+}
+
+.footer .credit {
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 2.5rem;
+    font-size: 1.5rem;
+    color: #333;
+    border-top: .1rem solid rgba(0, 0, 0, .1);
+}
+
+.footer .credit span {
+    color: var(--pink);
+}
+
 @media (max-width:991px) {
     html{
         font-size: 55%;
