@@ -2,7 +2,8 @@ const express = require('express');
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
 const bodyParser = require('body-parser');
-const viewsRouter = require("./routes/viewsRouter")
+const viewsRouter = require("./routes/viewsRoutes");
+const messageRouter = require("./routes/messageRoutes");
 const cookieParser = require('cookie-parser');
 dotenv.config({ path: "./config.env" });
 
@@ -25,6 +26,7 @@ app.use(cookieParser());
 app.use(express.static('public'));
 app.set("view engine", "ejs");
 app.use("/", viewsRouter);
+app.use("/", messageRouter);
 
 
 app.listen(PORT, () => {

@@ -213,11 +213,11 @@
 <section class="contact" id="contact">
     <h1 class="heading"><span>contact</span> us</h1>
     <div class="row">
-        <form action="">
-            <input type="text" placeholder="name" class="box">
-            <input type="email" placeholder="email" class="box">
-            <input type="number" placeholder="number" class="box">
-            <textarea name="" class="box" placeholder="message" id=""></textarea>
+        <form action="/sendMessage" method="POST">
+            <input type="text" placeholder="name" class="box" id="name" name="name">
+            <input type="email" placeholder="email" class="box" id="email" name="email">
+            <input type="number" placeholder="number" class="box" id="number" name="number">
+            <textarea name="message" class="box" placeholder="message" id="message"></textarea>
             <input type="submit" value="send message" class="btn">
         </form>
         <div class="image">
