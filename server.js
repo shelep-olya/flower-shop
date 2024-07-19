@@ -5,6 +5,8 @@ const bodyParser = require('body-parser');
 const viewsRouter = require("./routes/viewsRoutes");
 const messageRouter = require("./routes/messageRoutes");
 const productRouter = require("./routes/productRoutes");
+const authRouter = require("./routes/authRoutes");
+const userRouter = require("./routes/userRoutes");
 const cookieParser = require('cookie-parser');
 dotenv.config({ path: "./config.env" });
 
@@ -28,6 +30,8 @@ app.use(express.static('public'));
 app.set("view engine", "ejs");
 app.use("/", viewsRouter);
 app.use("/", messageRouter);
+app.use("/users", userRouter);
+app.use("/auth", authRouter);
 app.use("/products", productRouter);
 
 

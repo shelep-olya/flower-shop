@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const Product = require("./productModel");
-const Order = require("./orderModule");
+const Order = require("./orderModel");
 
 const userSchema = mongoose.Schema({
     username: {
