@@ -1,7 +1,8 @@
 const express = require('express');
 const mongoose = require("mongoose");
 const dotenv = require('dotenv');
-const bodyParser = require('body-parser');
+const expressLayout = require('express-ejs-layouts');
+const path = require('path');
 const viewsRouter = require("./routes/viewsRoutes");
 const messageRouter = require("./routes/messageRoutes");
 const productRouter = require("./routes/productRoutes");
@@ -27,7 +28,10 @@ mongoose.connect(MONGO_URL)
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
-app.use(express.static('public'));
+app.use(expressLayout);
+app.set('layout', './layouts/main');
+app.use(express.static(path.join(__dirname, 'public')));
+app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
 app.use("/", viewsRouter);
 app.use("/", messageRouter);
