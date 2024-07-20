@@ -1,7 +1,4 @@
 const mongoose = require("mongoose");
-const Product = require("./productModel");
-const User = require("./userModel");
-
 const orderSchema = mongoose.Schema({
     products: [{
         type: mongoose.Schema.Types.ObjectId,

@@ -48,5 +48,35 @@ exports.logIn = catchAsync(async (req, res, next) => {
     }
     const user = await User.findOne({ email }).select('+password');
     createSendToken(user, 200, res);
+});
+
+exports.logout = (req, res) => {
+    res.cookie('jwt', 'loggedout', {
+      expires: new Date(Date.now() + 10 * 1000),
+      httpOnly: true,
+    });
+    res.status(200).json({ status: 'logged out' });
+};
+  
+
+exports.protect = catchAsync(async (req, res, next) => {
+    let token;
+    if (req.cookies.jwt) {
+      token = req.cookies.jwt;
+    }
+  
+    if (!token) {
+      return res.status(401).send("Unauthorized");
+    }
+  
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+  
+    const user = await User.findById(decoded.id);
+    if (!user) {
+      return res.status(401).send("User not found");
+    }
+  
+    req.user = user;
+    next();
   });
   
