@@ -32,24 +32,24 @@ const reviewSchema = new mongoose.Schema({
     },
 
 });
+
 const calculateAvgRating = async function() {
-    const ratings = await this.model.find({}).select('rating');
-    const sumRatings = ratings.reduce((sum, review) => sum + review.rating, 0);
-    const avgRating = sumRatings / ratings.length;
+    const reviews = await mongoose.model("Review").find({}).select('rating');
+    const sumRatings = reviews.reduce((sum, review) => sum + review.rating, 0);
+    const avgRating = sumRatings / reviews.length;
 
     this.avgRating = avgRating;
-}
-
+};
 
 reviewSchema.pre("save", async function(next) {
-    if(!this.isModified("rating")) return next();
+    if (!this.isModified("rating")) return next();
     await calculateAvgRating.call(this);
     next();
 });
 
 reviewSchema.pre("findOneAndUpdate", async function(next) {
     const update = this.getUpdate();
-    if(update.rating == null) return next();
+    if (update.rating == null) return next();
 
     const docToUpdate = await this.model.findOne(this.getQuery());
     docToUpdate.rating = update.rating;

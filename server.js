@@ -7,6 +7,7 @@ const messageRouter = require("./routes/messageRoutes");
 const productRouter = require("./routes/productRoutes");
 const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
+const reviewRouter = require("./routes/reviewRoutes");
 const cookieParser = require('cookie-parser');
 dotenv.config({ path: "./config.env" });
 
@@ -33,6 +34,7 @@ app.use("/", messageRouter);
 app.use("/users", userRouter);
 app.use("/auth", authRouter);
 app.use("/products", productRouter);
+app.use("/reviews", reviewRouter);
 
 
 app.listen(PORT, () => {
