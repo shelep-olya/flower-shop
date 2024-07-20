@@ -7,9 +7,14 @@ const productSchema = mongoose.Schema({
         required: [true, "Please enter product's name."],
     },
     photo: {
-        type: String,
-        required: [true, "Please provide product's photo."],
-        unique: true,
+        data: {
+            type: Buffer,
+            required: [true, "Please provide product's photo data."],
+        },
+        contentType: {
+            type: String,
+            required: [true, "Please provide product's photo content type."],
+        }
     },
     price: {
         type: Number,

@@ -7,6 +7,16 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, "Please enter username"],
     },
+    photo: {
+        data: {
+            type: Buffer,
+            required: [true, "Please provide product's photo data."],
+        },
+        contentType: {
+            type: String,
+            required: [true, "Please provide product's photo content type."],
+        }
+    },
     email: {
         type: String,
         required: [true, "Please provide email."],

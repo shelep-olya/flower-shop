@@ -1,22 +1,44 @@
 const Product = require("../models/productModel");
 const catchAsync = require("../utils/catchAsync");
+const multer = require("multer");
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/uploads');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + '-' + file.originalname);
+    },
+});
 
+const upload = multer({
+    storage: storage,
+}).single('photo'); 
 
+exports.upload = upload;
 exports.createProduct = catchAsync(async (req, res) => {
-    const product = await Product.create({
+    if (!req.file) {
+        return res.status(400).json({ message: 'No file uploaded!' });
+    }
+    const newProduct = new Product({
         name: req.body.name,
-        photo: req.body.photo,
         price: req.body.price,
         discount: req.body.discount,
-    });
-    res.status(201).json(product);
+        photo: {
+          data: req.file.filename,
+          contentType: 'image/png'
+        }
+      });
+    newProduct.save()
+    res.status(201).json(newProduct);
 });
+
 
 exports.getProduct = catchAsync(async(req, res) => {
     const id = req.params.id;
     const product = await Product.findById(id);
     res.status(200).json(product);
 });
+
 
 exports.getProducts = catchAsync(async(req, res) => {
     const products = await Product.find();
