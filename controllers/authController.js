@@ -2,6 +2,7 @@ const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
+const adminLayout = "./../views/layouts/admin";
 
 const signToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
@@ -38,7 +39,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
     });
     // createSendToken(user, 201, res);
-    res.render("login");
+    res.render("login", {layout: adminLayout});
 });
 
 
@@ -49,7 +50,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
     }
     const user = await User.findOne({ email }).select('+password');
     // createSendToken(user, 200, res);
-    res.redirect("/");
+    res.render("index", {layout: adminLayout});
 });
 
 exports.logout = (req, res) => {
