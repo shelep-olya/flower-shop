@@ -10,11 +10,11 @@ const userSchema = mongoose.Schema({
     photo: {
         data: {
             type: Buffer,
-            required: [true, "Please provide product's photo data."],
+            required: [false, "Please provide product's photo data."],
         },
         contentType: {
             type: String,
-            required: [true, "Please provide product's photo content type."],
+            required: [false, "Please provide product's photo content type."],
         }
     },
     email: {

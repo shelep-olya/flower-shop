@@ -25,8 +25,6 @@ mongoose.connect(MONGO_URL)
   process.exit(1);
 });
 
-
-
 app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());

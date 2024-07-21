@@ -37,7 +37,8 @@ exports.signUp = catchAsync(async (req, res, next) => {
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
     });
-    createSendToken(user, 201, res);
+    // createSendToken(user, 201, res);
+    res.render("login");
 });
 
 
@@ -47,7 +48,8 @@ exports.logIn = catchAsync(async (req, res, next) => {
       return next(new AppError('Please provide email and password!', 400));
     }
     const user = await User.findOne({ email }).select('+password');
-    createSendToken(user, 200, res);
+    // createSendToken(user, 200, res);
+    res.redirect("/");
 });
 
 exports.logout = (req, res) => {

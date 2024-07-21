@@ -460,6 +460,27 @@ header .fa-bars{
     padding: 1rem 0;
     line-height: 1.5;
 }
+.login-p{
+    padding-left: .4rem;
+    margin-top: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: bolder;
+    line-height: 1.5;
+    color: #333;
+}
+.login-a{
+    padding-left: .4rem;
+    margin-top: 1.4rem;
+    font-size: 1.6rem;
+    font-weight: lighter;
+    line-height: 1.5;
+    color: #999;
+}
+.login-a:hover{
+    color: var(--pink);
+    text-decoration: underline;
+    
+}
 
 
 @media (max-width:991px) {
