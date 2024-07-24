@@ -1,34 +1,23 @@
 const crypto = require("crypto");
+const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
 const adminLayout = "./../views/layouts/admin";
 
-const signToken = (id) => {
-    return jwt.sign({ id }, process.env.JWT_SECRET, {
-        expiresIn: process.env.JWT_EXPIRES_IN,
+const createSendToken = (user, res) => {
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+        expiresIn: process.env.JWT_EXPIRES_IN
     });
-};
 
-const createSendToken = (user, statusCode, res) => {
-    const token = signToken(user._id);
-    const cookieOptions = {
-        expires: new Date(
-            Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
-        ),
+    res.cookie('jwt', token, {
+        expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
         httpOnly: true,
-    };
-    res.cookie('jwt', token, cookieOptions);
-
-    user.password = undefined;
-
-    res.status(statusCode).json({
-        status: "success",
-        token,
-        data: {
-            user,
-        },
+        secure: process.env.NODE_ENV === 'production'
     });
+
+    user.password = undefined; 
+
 };
 
 exports.signUp = catchAsync(async (req, res, next) => {
@@ -38,48 +27,58 @@ exports.signUp = catchAsync(async (req, res, next) => {
         password: req.body.password,
         passwordConfirm: req.body.passwordConfirm,
     });
-    // createSendToken(user, 201, res);
-    res.render("login", {layout: adminLayout});
+    createSendToken(user, res);
+    res.render("index", { layout: adminLayout, user }); 
 });
 
 
 exports.logIn = catchAsync(async (req, res, next) => {
     const { email, password } = req.body;
+
     if (!email || !password) {
-      return next(new AppError('Please provide email and password!', 400));
+        return next(new Error('Please provide email and password!', 400));
     }
+
     const user = await User.findOne({ email }).select('+password');
-    // createSendToken(user, 200, res);
-    res.render("index", {layout: adminLayout});
+    if (!user || !(await bcrypt.compare(password, user.password))) {
+        return next(new Error('Incorrect email or password', 401));
+    }
+
+    createSendToken(user, res);
+    res.render("index", { layout: adminLayout, user });
 });
 
 exports.logout = (req, res) => {
     res.cookie('jwt', 'loggedout', {
-      expires: new Date(Date.now() + 10 * 1000),
-      httpOnly: true,
+        expires: new Date(Date.now() + 10 * 1000),
+        httpOnly: true,
     });
-    res.status(200).json({ status: 'logged out' });
+    res.render('login', { layout: adminLayout });
 };
-  
 
 exports.protect = catchAsync(async (req, res, next) => {
     let token;
     if (req.cookies.jwt) {
-      token = req.cookies.jwt;
+        token = req.cookies.jwt;
     }
-  
+
     if (!token) {
-      return res.status(401).send("Unauthorized");
+        return res.render('login', { layout: adminLayout });
     }
-  
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-  
-    const user = await User.findById(decoded.id);
-    if (!user) {
-      return res.status(401).send("User not found");
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    try {
+        const user = await User.findById(decoded.id);
+        req.user = user;
+        if (!user) {
+            console.log(`User with ID ${decoded.id} not found`);
+            return res.render('login', { layout: adminLayout }); 
+        }
+        console.log('User found:', user);
+    } catch (error) {
+        console.error('Error fetching user:', error);
+        return res.render('error', { layout: adminLayout, message: 'Internal Server Error' }); 
     }
-  
-    req.user = user;
+
     next();
-  });
-  
+});

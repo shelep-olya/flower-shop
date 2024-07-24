@@ -36,9 +36,10 @@ app.set("view engine", "ejs");
 app.use("/", viewsRouter);
 app.use("/", messageRouter);
 app.use("/users", userRouter);
-app.use("/auth", authRouter);
+app.use("/", authRouter);
 app.use("/products", productRouter);
 app.use("/reviews", reviewRouter);
+
 
 
 app.listen(PORT, () => {

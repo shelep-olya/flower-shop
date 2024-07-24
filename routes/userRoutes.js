@@ -1,10 +1,17 @@
 const express = require("express");
 const userController = require("../controllers/userController");
+const authController = require("../controllers/authController");
 const viewsController = require("../controllers/viewsController");
 const router = express.Router();
 
-router.route("/favourites/:id")
-    .get(userController.getAllProductsOfOne)
+router.post("/add-to-favorites/:productId", authController.protect, userController.addToFavourites);
+
+router.route("/orders")
+    .get(authController.protect, userController.getOrder)
+    .get(viewsController.getOrdersPage);
+
+router.route("/favourites")
+    .get(authController.protect, userController.getFavorites)
     .get(viewsController.getFavouritesPage);
 
 router.route("/me")
