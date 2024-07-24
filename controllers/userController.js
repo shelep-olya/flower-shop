@@ -1,6 +1,16 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 
+exports.getMe = (req, res, next) => {
+    req.params.id = req.user.id;
+    next();
+};
+
+exports.getAllProductsOfOne = catchAsync(async(req, res) => {
+    const products = req.user.favourite;
+    res.status(200).json(products);
+})
+
 exports.getUser = catchAsync(async (req, res) => {
     const id = req.params.id;
     const user = await User.findById(id);

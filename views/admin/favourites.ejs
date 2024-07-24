@@ -1,0 +1,8 @@
+<section class="favourites">
+    <a href="/favourites" class="fas fa-heart"></a>
+<div class="wrapper">
+    <% products.forEach(product => { %>
+        <a href="/product <%= product.id %>"><%= product.name %></a>
+    <% }) %>
+</div>
+</section>

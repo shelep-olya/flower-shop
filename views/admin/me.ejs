@@ -1,0 +1,9 @@
+<section class="my-account">
+    <div class="content">
+        <h3><%= user.username %></h3>
+        <p><%= user.photo.data %></p>
+        <a href="/orders/<%= user.id %>" class="fas fa-shopping-cart">my orders</a>
+        <a href="/favourites/<%= user.id %>" class="fas fa-heart">my favourites</a>
+        <a href="/auth/logout" class="fas fa-user">log out</a>
+    </div>
+</section>

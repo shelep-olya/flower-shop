@@ -23,8 +23,8 @@ exports.getReviewPage = (req, res) => {
     res.status(200).render("review");
 };
 
-exports.getMyAccount = ( req, res) => {
-    res.status(200).render("myAccount");
+exports.getMePage = (req, res) => {
+    res.status(200).render("me");
 };
 
 exports.getLoginPage = (req, res) => {
@@ -33,4 +33,12 @@ exports.getLoginPage = (req, res) => {
 
 exports.getSignUpPage = (req, res) => {
     res.status(200).render("signup");
+};
+
+exports.getFavouritesPage = (req, res) => {
+    res.status(200).render("favourites");
+};
+
+exports.getOrdersPage = (req, res) => {
+    res.status(200).render("orders");
 };

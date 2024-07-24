@@ -7,7 +7,7 @@ router.get("/contact", viewsController.getContactPage);
 router.get("/about", viewsController.getAboutPage);
 router.get("/products", viewsController.getProductsPage);
 router.get("/review", viewsController.getReviewPage);
-router.get("/myAccount", viewsController.getMyAccount);
+router.get("/orders", viewsController.getOrdersPage);
 
 
 module.exports = router;

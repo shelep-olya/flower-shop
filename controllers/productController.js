@@ -45,6 +45,7 @@ exports.getProducts = catchAsync(async(req, res) => {
     res.status(200).json(products);
 });
 
+
 exports.updateProduct = catchAsync(async(req, res) => {
     const id = req.params.id;
     const updatedData = req.body;
