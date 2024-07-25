@@ -1,9 +1,20 @@
 const Product = require("../models/productModel");
-const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
+const authController = require("../controllers/authController");
+const adminLayout = "./../views/layouts/admin";
+const defaultLayout = "./../views/layouts/main";
+
+
 
 exports.getMainPage = (req, res) => {
-    res.status(200).render("index");
+    let layout = defaultLayout;
+    if(res.locals.user){
+        layout = adminLayout;
+    }
+    res.status(200).render("index", {
+        layout,
+        user: res.locals.user 
+    });
 };
 
 exports.getContactPage = (req, res) => {

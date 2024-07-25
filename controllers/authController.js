@@ -82,3 +82,28 @@ exports.protect = catchAsync(async (req, res, next) => {
 
     next();
 });
+
+exports.isLoggedIn = async (req, res, next) => {
+    if (req.cookies.jwt) {
+        try {
+            // Verify token
+            const decoded = await promisify(jwt.verify)(
+                req.cookies.jwt,
+                process.env.JWT_SECRET
+            );
+
+            // Check if user still exists
+            const user = await User.findById(decoded.id);
+            if (!user) {
+                return next();
+            }
+
+            // There is a logged-in user
+            res.locals.user = user;
+            return next();
+        } catch (err) {
+            return next();
+        }
+    }
+    next();
+};
