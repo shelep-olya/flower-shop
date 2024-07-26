@@ -3,7 +3,6 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
-const adminLayout = "./../views/layouts/admin";
 
 const createSendToken = (user, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -28,7 +27,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
     });
     createSendToken(user, res);
-    res.render("index", { layout: adminLayout, user }); 
+    res.render("index", { user }); 
 });
 
 
@@ -45,7 +44,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
     }
 
     createSendToken(user, res);
-    res.render("index", { layout: adminLayout, user });
+    res.render("index", { user });
 });
 
 exports.logout = (req, res) => {
@@ -53,7 +52,7 @@ exports.logout = (req, res) => {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true,
     });
-    res.render('login', { layout: adminLayout });
+    res.render('login');
 };
 
 exports.protect = catchAsync(async (req, res, next) => {
@@ -63,7 +62,7 @@ exports.protect = catchAsync(async (req, res, next) => {
     }
 
     if (!token) {
-        return res.render('login', { layout: adminLayout });
+        return res.render('login');
     }
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
@@ -72,38 +71,38 @@ exports.protect = catchAsync(async (req, res, next) => {
         req.user = user;
         if (!user) {
             console.log(`User with ID ${decoded.id} not found`);
-            return res.render('login', { layout: adminLayout }); 
+            return res.render('login'); 
         }
         console.log('User found:', user);
     } catch (error) {
         console.error('Error fetching user:', error);
-        return res.render('error', { layout: adminLayout, message: 'Internal Server Error' }); 
+        return res.render('error', { message: 'Internal Server Error' }); 
     }
 
     next();
 });
-
 exports.isLoggedIn = async (req, res, next) => {
     if (req.cookies.jwt) {
         try {
-            // Verify token
             const decoded = await promisify(jwt.verify)(
                 req.cookies.jwt,
                 process.env.JWT_SECRET
             );
 
-            // Check if user still exists
             const user = await User.findById(decoded.id);
             if (!user) {
                 return next();
             }
 
-            // There is a logged-in user
             res.locals.user = user;
             return next();
         } catch (err) {
             return next();
         }
     }
+    next();
+};
+exports.setUserInResponseLocals = (req, res, next) => {
+    res.locals.user = req.user;
     next();
 };

@@ -1,6 +1,5 @@
 const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
-const adminLayout = "./../views/layouts/admin";
 exports.getMe = (req, res, next) => {
     req.params.id = req.user.id;
     next();
@@ -13,7 +12,6 @@ exports.getFavorites = catchAsync(async (req, res, next) => {
     }
 
     res.render('favourites', { 
-        layout: adminLayout,
         user: req.user,
         products: user.favourite 
     });
@@ -25,7 +23,6 @@ exports.getOrder = catchAsync(async(req, res) => {
         return next(new Error('User not found', 404));
     }
     res.render('orders', { 
-        layout: adminLayout,
         user: req.user,
         products: user.order 
     });
