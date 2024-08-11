@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
+const userLayout = "../views/layouts/admin"
 
 const createSendToken = (user, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -44,7 +45,7 @@ exports.logIn = catchAsync(async (req, res, next) => {
     }
 
     createSendToken(user, res);
-    res.render("index", { user });
+    res.render("index_user", {layout: userLayout});
 });
 
 exports.logout = (req, res) => {

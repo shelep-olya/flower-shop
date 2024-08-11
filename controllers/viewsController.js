@@ -1,23 +1,30 @@
 const Product = require("../models/productModel");
 const catchAsync = require("../utils/catchAsync");
+const basicLayout = '../views/layouts/main';
+const userLayout = "../views/layouts/admin";
 
 exports.getMainPage = (req, res) => {
-    res.status(200).render("index", {
-        user: res.locals.user,
-    });
+    res.status(200).render("index", {layout: basicLayout});
+};
+exports.getUserMainPage = (req, res) => {
+    res.status(200).render("index_user", {layout: userLayout});
 };
 
-exports.getContactPage = (req, res) => {
-    res.status(200).render("contact", {
-        user:res.locals.user, 
-    });
-};
+// exports.getContactPage = (req, res) => {
+//     res.status(200).render("contact", {layout: 'basicLayout'});
+// };
+// exports.getContactPage = (req, res) => {
+//     res.status(200).render("contact",{layout: 'userLayout'});
+// };
 
 exports.getAboutPage = (req, res) => {
     res.status(200).render("about", {
         user:res.locals.user,
     });
 };
+exports.getProductDetailPage = (req, res) => {
+
+}
 
 exports.getProductsPage = catchAsync(async (req, res) => {
     const products = await Product.find();
@@ -40,7 +47,7 @@ exports.getMePage = (req, res) => {
 };
 
 exports.getLoginPage = (req, res) => {
-    res.status(200).render("login", {user:res.locals.user});
+    res.status(200).render("login", {layout: basicLayout});
 };
 
 exports.getSignUpPage = (req, res) => {

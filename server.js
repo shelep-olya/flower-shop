@@ -10,6 +10,8 @@ const authRouter = require("./routes/authRoutes");
 const userRouter = require("./routes/userRoutes");
 const reviewRouter = require("./routes/reviewRoutes");
 const cookieParser = require('cookie-parser');
+const basicLayout = '../views/layouts/main';
+const userLayout = "../views/layouts/admin";
 dotenv.config({ path: "./config.env" });
 
 const app = express();
@@ -29,7 +31,6 @@ app.use(express.urlencoded({extended: true}));
 app.use(express.json());
 app.use(cookieParser());
 app.use(expressLayout);
-app.set('layout', './layouts/main');
 app.use(express.static(path.join(__dirname, 'public')));
 app.set('views', path.join(__dirname, 'views'));
 app.set("view engine", "ejs");
@@ -40,7 +41,13 @@ app.use("/", authRouter);
 app.use("/products", productRouter);
 app.use("/reviews", reviewRouter);
 
+const setLayout = (req, res, next) => {
+  res.locals.layout = req.user ? userLayout :  basicLayout;
+  next();
+};
 
+
+app.use(setLayout);
 
 app.listen(PORT, () => {
   console.log(`App is running on port ${PORT}`);
