@@ -29,7 +29,7 @@ exports.signUp = catchAsync(async (req, res, next) => {
         passwordConfirm: req.body.passwordConfirm,
     });
     createSendToken(user, res);
-    res.render("index", { user }); 
+    res.render("login", { layout: basicLayout}); 
 });
 
 
@@ -104,6 +104,7 @@ exports.isLoggedIn = async (req, res, next) => {
     }
     next();
 };
+
 exports.setUserInResponseLocals = (req, res, next) => {
     res.locals.user = req.user;
     next();

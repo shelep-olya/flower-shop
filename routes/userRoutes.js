@@ -1,14 +1,12 @@
 const express = require("express");
 const userController = require("../controllers/userController");
 const authController = require("../controllers/authController");
+const orderController = require("../controllers/orderController");
 const viewsController = require("../controllers/viewsController");
 const router = express.Router();
 
-router.post("/add-to-favorites/:productId", authController.protect, userController.addToFavourites);
+router.post("/add-to-favourites/:productId", authController.protect, userController.addToFavorites )
 
-router.route("/orders")
-    .get(authController.protect, userController.getOrder)
-    .get(viewsController.getOrdersPage);
 
 router.route("/favourites")
     .get(authController.protect, userController.getFavorites)
@@ -22,7 +20,9 @@ router.route("/")
     .get(userController.getUsers);
 
 router.route("/:id")
-    .get(userController.getUser)
     .delete(userController.deleteUser);
 
+router.get('/add-to-cart/:productId', authController.protect, orderController.addToCart);
+router.delete('/remove-from-cart/:productId', authController.protect, orderController.removeFromCart);
+router.get("/orders", authController.protect, orderController.getOrder);
 module.exports = router;

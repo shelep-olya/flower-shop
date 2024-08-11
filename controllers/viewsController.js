@@ -1,4 +1,5 @@
 const Product = require("../models/productModel");
+const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const basicLayout = '../views/layouts/main';
 const userLayout = "../views/layouts/admin";
@@ -35,9 +36,10 @@ exports.getProductsPage = catchAsync(async (req, res) => {
 });
 exports.getUserProductsPage = catchAsync(async (req, res) => {
     const products = await Product.find();
+    const user = req.user;
     res.status(200).render("products_user", {
        layout: userLayout,
-        products
+       products,
     });
 });
 
@@ -61,10 +63,10 @@ exports.getSignUpPage = (req, res) => {
     res.status(200).render("signup", {layout: basicLayout});
 };
 
-exports.getFavouritesPage = (req, res) => {
-    res.status(200).render("favourites", {layout: userLayout});
-};
+exports.getFavouritesPage =catchAsync(async (req, res) => {
+    const userId = req.user.id;
+    const user = await User.findById(userId);
+    const products = user.favourite;
+    res.status(200).render("favourites", {layout: userLayout, products});
+}); 
 
-exports.getOrdersPage = (req, res) => {
-    res.status(200).render("orders", {layout: userLayout});
-};

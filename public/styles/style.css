@@ -445,28 +445,67 @@ header .fa-bars{
 .my-account {
     display: flex;
     align-items: center;
+    justify-content: center;
     min-height: 100vh;
+    padding: 2rem;
+    background: linear-gradient(to right, #ff9a9e, #fad0c4);
     background-size: cover;
 }
-.my-account .content{
-    max-width: 50rem;
+
+.my-account .content {
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
+    max-width: 40rem;
+    width: 100%;
+    text-align: center;
+    animation: fadeIn 0.5s ease-in-out;
 }
-.my-account .content h3{
-    font-size: 6rem;
+
+.my-account .content h3 {
+    font-size: 4rem;
     color: #333;
+    margin-bottom: 1rem;
+    font-weight: 700;
 }
-.my-account .content span{
-    font-size: 3.5rem;
+
+.my-account .content span {
+    font-size: 2rem;
     color: var(--pink);
     padding: 1rem 0;
-    line-height: 1.5;
+    display: block;
 }
-.my-account .content p{
-    font-size: 1.5rem;
-    color:#999;
+
+.my-account .content p {
+    font-size: 1.6rem;
+    color: #666;
     padding: 1rem 0;
-    line-height: 1.5;
+    line-height: 1.6;
 }
+
+.my-account .content a {
+    display: block;
+    font-size: 1.8rem;
+    color: #fff;
+    background: var(--pink);
+    margin: 1rem 0;
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-transform: uppercase;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background 0.3s ease;
+}
+
+.my-account .content a:hover {
+    background: #ff7a85;
+}
+
+.my-account .content a.fas::before {
+    margin-right: 0.5rem;
+}
+
 .login-p{
     padding-left: .4rem;
     margin-top: 1.4rem;
@@ -486,7 +525,6 @@ header .fa-bars{
 .login-a:hover{
     color: var(--pink);
     text-decoration: underline;
-    
 }
 
 
@@ -540,6 +578,26 @@ header .fa-bars{
     .icons-container .icons span{
         font-size:  1.7rem;
     }
+    .my-account .content {
+        padding: 1.5rem;
+        max-width: 90%;
+    }
+
+    .my-account .content h3 {
+        font-size: 3rem;
+    }
+    .my-account .content span {
+        font-size: 1.8rem;
+    }
+
+    .my-account .content p {
+        font-size: 1.4rem;
+    }
+
+    .my-account .content a {
+        font-size: 1.6rem;
+        padding: 0.8rem 1.5rem;
+    }
 }
 
 @media (max-width:450px) {
@@ -548,5 +606,15 @@ header .fa-bars{
     }
     .heading{
         font-size: 3rem;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }

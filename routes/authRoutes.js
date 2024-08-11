@@ -11,7 +11,5 @@ router.post("/login", authController.logIn);
 
 router.get("/logout", authController.logout);
 
-router.get('/favourites', authController.protect, viewsController.getFavouritesPage);
-router.get('/orders', authController.protect, viewsController.getOrdersPage);
 
 module.exports = router;

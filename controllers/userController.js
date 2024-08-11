@@ -29,29 +29,24 @@ exports.getOrder = catchAsync(async(req, res) => {
 
 });
 
-exports.addToFavourites = catchAsync(async(req, res) =>{
+exports.addToFavorites = catchAsync(async (req, res, next) => {
     const user = await User.findById(req.user.id);
-    if(!user){
-        return next(new Error('User not found', 404));
-    }
     const productId = req.params.productId;
-    if(!user.favourite.includes(productId)){
+
+    if (!user.favourite.includes(productId)) {
         user.favourite.push(productId);
+        await user.save();
     }
-    await user.save();
+
     res.status(200).json({
         status: 'success',
         message: 'Product added to favorites',
-        data: {
-            favourites: user.favourite
-        }
     });
-})
+});
 
 exports.getUser = catchAsync(async (req, res) => {
-    const id = req.params.id;
+    const id = req.user.id;
     const user = await User.findById(id);
-
     res.status(200).json(user);
 });
 

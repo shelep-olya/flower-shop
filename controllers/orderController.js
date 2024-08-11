@@ -1,30 +1,56 @@
 const User = require('../models/userModel');
 const Order = require('../models/orderModel');
 const catchAsync = require('../utils/catchAsync');
+const Product = require('../models/productModel');
+const userLayout = "../views/layouts/admin";
+exports.addToCart = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user.id).populate('order');
 
-exports.createOrder = catchAsync(async(req, res, next) => {
+    if (!user) {
+        return next(new AppError('No user found with that ID', 404));
+    }
+
+    const productId = req.params.productId;
+
+    if (!Array.isArray(user.order)) {
+        user.order = [];
+    }
+
+    if (!user.order.includes(productId)) {
+        user.order.push(productId);
+        await user.save({ validateBeforeSave: false });
+    }
+
+  
+    res.status(200).render('index_user', { layout: userLayout });
+});
+exports.removeFromCart = catchAsync(async (req, res, next) => {
     const user = await User.findById(req.user.id);
+    const productId = req.params.productId;
+
+    user.cart = user.cart.filter(item => item.toString() !== productId);
+    await user.save();
+
+    res.status(200).render("products", {layout: userLayout});
+});
+
+
+exports.getOrder = catchAsync(async (req, res, next) => {
+    const user = await User.findById(req.user.id);
+
     if (!user) {
         return next(new Error('User not found', 404));
     }
+    const productIds = user.order;
 
-    const products = req.body.products; 
-    const order = await Order.create({
-        products,
-        user: user._id 
-    });
+    const products = await Product.find({ '_id': { $in: productIds } });
 
-    res.status(201).send('Order saved successfully');
-});
-
-exports.getOrder = catchAsync(async(req, res, next) => {
-    const user = await User.findById(req.user.id).populate('order');
-    if (!user) {
-        return next(new Error('User not found', 404));
+    if (!products.length) {
+        return next(new Error('No orders found', 404));
     }
 
     res.render('orders', {
-        user: req.user,
-        products: user.order 
+        layout: userLayout,
+        products,
     });
 });
