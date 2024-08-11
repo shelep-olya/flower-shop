@@ -10,40 +10,47 @@ exports.getUserMainPage = (req, res) => {
     res.status(200).render("index_user", {layout: userLayout});
 };
 
-// exports.getContactPage = (req, res) => {
-//     res.status(200).render("contact", {layout: 'basicLayout'});
-// };
-// exports.getContactPage = (req, res) => {
-//     res.status(200).render("contact",{layout: 'userLayout'});
-// };
+exports.getContactPage = (req, res) => {
+    res.status(200).render("contact", {layout: basicLayout});
+};
+
+exports.getUserContactPage = (req, res) => {
+    res.status(200).render("contact_user",{layout: userLayout});
+};
 
 exports.getAboutPage = (req, res) => {
-    res.status(200).render("about", {
-        user:res.locals.user,
-    });
+    res.status(200).render("about", {layout: basicLayout});
 };
-exports.getProductDetailPage = (req, res) => {
 
-}
+exports.getUserAboutPage = (req, res) => {
+    res.status(200).render("about_user", {layout: userLayout});
+};
 
 exports.getProductsPage = catchAsync(async (req, res) => {
     const products = await Product.find();
     res.status(200).render("products", {
-        user: res.locals.user,
+        layout: basicLayout,
+        products
+    });
+});
+exports.getUserProductsPage = catchAsync(async (req, res) => {
+    const products = await Product.find();
+    res.status(200).render("products_user", {
+       layout: userLayout,
         products
     });
 });
 
 exports.getReviewPage = (req, res) => {
-    res.status(200).render("review", {
-        user: res.locals.user 
-    });
+    res.status(200).render("review",{layout: basicLayout});
+};
+exports.getUserReviewPage = (req, res) => {
+    res.status(200).render("review_user",{layout: userLayout});
 };
 
 exports.getMePage = (req, res) => {
-    res.status(200).render("me", {
-        user: res.locals.user 
-    });
+    const user = req.user;
+    res.status(200).render("me", {layout: userLayout, user});
 };
 
 exports.getLoginPage = (req, res) => {
@@ -51,13 +58,13 @@ exports.getLoginPage = (req, res) => {
 };
 
 exports.getSignUpPage = (req, res) => {
-    res.status(200).render("signup", {user:res.locals.user});
+    res.status(200).render("signup", {layout: basicLayout});
 };
 
 exports.getFavouritesPage = (req, res) => {
-    res.status(200).render("favourites", {user:res.locals.user});
+    res.status(200).render("favourites", {layout: userLayout});
 };
 
 exports.getOrdersPage = (req, res) => {
-    res.status(200).render("orders", {user:res.locals.user});
+    res.status(200).render("orders", {layout: userLayout});
 };

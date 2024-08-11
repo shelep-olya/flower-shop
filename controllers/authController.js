@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const catchAsync = require("../utils/catchAsync");
 const User = require("../models/userModel");
 const userLayout = "../views/layouts/admin"
+const basicLayout = "../views/layouts/main"
 
 const createSendToken = (user, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
@@ -53,7 +54,7 @@ exports.logout = (req, res) => {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true,
     });
-    res.render('login');
+    res.render('login', {layout: basicLayout});
 };
 
 exports.protect = catchAsync(async (req, res, next) => {

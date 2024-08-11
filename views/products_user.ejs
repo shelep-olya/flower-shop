@@ -1,0 +1,22 @@
+<section class="products" id="products">
+    <h1 class="heading">latest <span>products</span> </h1>
+    <div class="box-container">
+        <% products.forEach(product => { %>
+            <div class="box">
+                <span class="discount">-<%= product.discount %>% </span>
+                <div class="image">
+                    <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
+                    <div class="icons">
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn">add to cart</a>
+                        <a href="/products/<%= product.id %>" class="fas fa-share"></a>
+                    </div>
+                </div>
+                <div class="content">
+                    <h3><%= product.name %></h3>
+                    <div class="price"><%= product.priceWithDiscount %> $<span><%= product.price %>$</span></div>
+                </div>
+            </div>
+        <% }) %>
+    </div>
+</section>
