@@ -1,4 +1,4 @@
-<section class="orders" id="orders">
+<section class="products" id="products">
     <h1 class="heading">Your <span>Orders</span></h1>
     <div class="box-container">
         <% if (products && products.length > 0) { %>
@@ -8,8 +8,7 @@
                     <div class="image">
                         <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
                         <div class="icons">
-                            <a href="/add-to-favourites/<%= product.id %>" class="fas fa-heart"></a>
-                            <a href="/add-to-cart/<%= product.id %>" class="cart-btn">add to cart</a>
+                            <a href="/users/remove-from-cart/<%= product.id %>" class="fas fa-times"></a>
                             <a href="/products/<%= product.id %>" class="fas fa-share"></a>
                         </div>
                     </div>

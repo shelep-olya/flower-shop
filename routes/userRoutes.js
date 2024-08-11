@@ -23,6 +23,6 @@ router.route("/:id")
     .delete(userController.deleteUser);
 
 router.get('/add-to-cart/:productId', authController.protect, orderController.addToCart);
-router.delete('/remove-from-cart/:productId', authController.protect, orderController.removeFromCart);
+router.get('/remove-from-cart/:productId', authController.protect, orderController.removeFromCart);
 router.get("/orders", authController.protect, orderController.getOrder);
 module.exports = router;

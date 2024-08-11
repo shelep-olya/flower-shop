@@ -25,13 +25,16 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     res.status(200).render('index_user', { layout: userLayout });
 });
 exports.removeFromCart = catchAsync(async (req, res, next) => {
-    const user = await User.findById(req.user.id);
+    const userId = req.user.id;
     const productId = req.params.productId;
 
-    user.cart = user.cart.filter(item => item.toString() !== productId);
-    await user.save();
+    await User.findByIdAndUpdate(
+        userId,
+        { $pull: { order: productId } }, 
+        { new: true, runValidators: false } 
+    );
 
-    res.status(200).render("products", {layout: userLayout});
+    res.status(200).render("index_user", { layout: userLayout });
 });
 
 
