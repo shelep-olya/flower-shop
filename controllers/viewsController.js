@@ -63,10 +63,5 @@ exports.getSignUpPage = (req, res) => {
     res.status(200).render("signup", {layout: basicLayout});
 };
 
-exports.getFavouritesPage =catchAsync(async (req, res) => {
-    const userId = req.user.id;
-    const user = await User.findById(userId);
-    const products = user.favourite;
-    res.status(200).render("favourites", {layout: userLayout, products});
-}); 
+
 

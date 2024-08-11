@@ -5,12 +5,12 @@ const orderController = require("../controllers/orderController");
 const viewsController = require("../controllers/viewsController");
 const router = express.Router();
 
-router.post("/add-to-favourites/:productId", authController.protect, userController.addToFavorites )
+router.get("/add-to-favourites/:productId", authController.protect, userController.addToFavorites )
 
-
+router.get("/remove-from-favorites/:id", authController.protect, userController.removeFromFavorites);
 router.route("/favourites")
     .get(authController.protect, userController.getFavorites)
-    .get(viewsController.getFavouritesPage);
+    .get(userController.getFavorites);
 
 router.route("/me")
     .get(viewsController.getMePage)
