@@ -48,9 +48,6 @@ exports.getOrder = catchAsync(async (req, res, next) => {
 
     const products = await Product.find({ '_id': { $in: productIds } });
 
-    if (!products.length) {
-        return next(new Error('No orders found', 404));
-    }
 
     res.render('orders', {
         layout: userLayout,

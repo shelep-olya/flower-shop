@@ -37,8 +37,8 @@ app.set("view engine", "ejs");
 app.use("/", viewsRouter);
 app.use("/", messageRouter);
 app.use("/users", userRouter);
-app.use("/", authRouter);
-app.use("/", productRouter);
+app.use("/api", authRouter);
+app.use("/products", productRouter);
 app.use("/reviews", reviewRouter);
 
 const setLayout = (req, res, next) => {

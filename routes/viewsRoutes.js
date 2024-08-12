@@ -23,7 +23,6 @@ router.get("/me", authController.protect, viewsController.getMePage);
 router.get("/auth/:id", authController.protect, productController.getUserProduct);
 router.get("/:id", isAutheticated, productController.getProduct);
 
-router.get("/login", viewsController.getLoginPage);
-router.post("/login", authController.logIn);
+
 
 module.exports = router;

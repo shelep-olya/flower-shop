@@ -6,7 +6,8 @@ const router = express.Router();
 router.get("/signup", viewsController.getSignUpPage);
 router.post("/signup", authController.signUp);
 
-
+router.get("/login", viewsController.getLoginPage);
+router.post("/login", authController.logIn);
 
 router.get("/logout", authController.logout);
 
