@@ -7,6 +7,11 @@
                 <div class="image">
                     <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
                     <div class="icons">
+                        <% if (!userAuthenticated) { %>
+                            <div class="auth-alert" id="auth-alert-<%= product._id %>" style="display: none;">
+                                <p>You need to be authenticated to perform this action.</p>
+                            </div>
+                        <% } %>
                         <a href="#" class="fas fa-heart"></a>
                         <a href="#" class="cart-btn">add to cart</a>
                         <a href="/products/<%= product.id %>" class="fas fa-share"></a>
@@ -20,3 +25,4 @@
         <% }) %>
     </div>
 </section>
+<script src="/scripts/auth-alert.js"></script>

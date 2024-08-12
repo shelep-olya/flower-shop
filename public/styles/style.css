@@ -300,6 +300,24 @@ header .fa-bars{
     text-decoration: line-through;
     
 }
+.auth-alert {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: rgba(255, 0, 0, 0.8);
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 12px;
+    z-index: 10;
+}
+.products .box-container .box{
+    position: relative;
+}
+.products .box-container .box .image .icons{
+    position: relative;
+}
+
 /* REVIEW */
 .review .box-container{
     display:flex;

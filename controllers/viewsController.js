@@ -1,5 +1,4 @@
 const Product = require("../models/productModel");
-const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const basicLayout = '../views/layouts/main';
 const userLayout = "../views/layouts/admin";
@@ -36,7 +35,6 @@ exports.getProductsPage = catchAsync(async (req, res) => {
 });
 exports.getUserProductsPage = catchAsync(async (req, res) => {
     const products = await Product.find();
-    const user = req.user;
     res.status(200).render("products_user", {
        layout: userLayout,
        products,
