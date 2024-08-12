@@ -38,7 +38,7 @@ app.use("/", viewsRouter);
 app.use("/", messageRouter);
 app.use("/users", userRouter);
 app.use("/", authRouter);
-app.use("/products", productRouter);
+app.use("/", productRouter);
 app.use("/reviews", reviewRouter);
 
 const setLayout = (req, res, next) => {
