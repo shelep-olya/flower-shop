@@ -22,7 +22,7 @@ exports.addToCart = catchAsync(async (req, res, next) => {
     }
 
   
-    res.status(200).render('index_user', { layout: userLayout });
+    res.status(200).redirect("/users/orders");
 });
 exports.removeFromCart = catchAsync(async (req, res, next) => {
     const userId = req.user.id;
@@ -34,7 +34,7 @@ exports.removeFromCart = catchAsync(async (req, res, next) => {
         { new: true, runValidators: false } 
     );
 
-    res.status(200).render("index_user", { layout: userLayout });
+    res.status(200).redirect("/auth/products");
 });
 
 

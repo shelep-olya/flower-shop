@@ -40,7 +40,7 @@ exports.removeFromFavorites = catchAsync(async (req, res, next) => {
     user.favourite = user.favourite.filter(item => item.toString() !== productId);
     await user.save({ validateBeforeSave: false });
 
-    res.status(200).render("index_user", { layout: userLayout });
+    res.status(200).redirect("/users/favourites");
 });
 exports.addToFavorites = catchAsync(async (req, res, next) => {
     const userId = req.user.id;

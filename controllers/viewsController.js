@@ -41,12 +41,7 @@ exports.getUserProductsPage = catchAsync(async (req, res) => {
     });
 });
 
-exports.getReviewPage = (req, res) => {
-    res.status(200).render("review",{layout: basicLayout});
-};
-exports.getUserReviewPage = (req, res) => {
-    res.status(200).render("review_user",{layout: userLayout});
-};
+
 
 exports.getMePage = (req, res) => {
     const user = req.user;

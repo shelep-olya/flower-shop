@@ -27,6 +27,10 @@ const productSchema = mongoose.Schema({
     },
     priceWithDiscount: {
         type: Number
+    },
+    review: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Review",
     }
 });
 productSchema.pre("save", function(next) {
