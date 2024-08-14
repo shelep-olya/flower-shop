@@ -1,40 +1,53 @@
 <section class="products" id="products">
     <h1 class="heading">detail <span>page</span> </h1>
     <div class="box-container">
-<div class="box">
-    <span class="discount">-<%= product.discount %>% </span>
-    <div class="image">
-        <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
+        <div class="box">
+            <span class="discount">-<%= product.discount %>% </span>
+            <div class="image">
+                <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
         <div class="icons">
             <a href="/users/add-to-favourites/<%= product.id %>" class="fas fa-heart"></a>
             <a href="/users/add-to-cart/<%= product.id %>" class="cart-btn">add to cart</a>
         </div>
+
+            </div>
+            <div class="content">
+                <h3><%= product.name %></h3>
+                <div class="price"><%= product.priceWithDiscount %> $<span><%= product.price %>$</span></div>
+            </div>
+        </div>
     </div>
-    <div class="content">
-        <h3><%= product.name %></h3>
-        <div class="price"><%= product.priceWithDiscount %> $<span><%= product.price %>$</span></div>
-</div>
-</div>
-    </div>
-    <section class="review" id="review">
-        <h1 class="heading">customers <span>review</span> </h1>
-        <div class="box-container">
-            <div class="box">
-                <div class="stars">
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                    <i class="fas fa-star"></i>
-                </div>
-                <p>"Lorem ipsum dolor sit amet, Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur</p>
-                <div class="user">
-                    <img src="/images/customer1.jpg" alt="">
-                    <div class="user-info">
-                        <h3>john</h3>
-                        <span>happy customer</span>
+<h1 class="heading">add <span>review</span> </h1>
+<form action="/<%= product._id %>/addReview" method="POST" class="add-review">
+    <input type="number" placeholder="rating" class="box" id="rating" name="rating" required>
+    <textarea name="review" class="box" placeholder="review" id="review" required></textarea>
+    <input type="submit" value="send review" class="btn">
+</form>
+    </section>
+<section class="review" id="review">
+    <h1 class="heading">customers <span>review</span> </h1>
+    <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+        <% reviews.forEach(review => { %>
+            <div class="box-container">
+                <div class="box">
+                    <div class="stars">
+                        <% for (let i = 0; i < review.rating; i++) { %>
+                            <i class="fas fa-star"></i>
+                        <% } %>
                     </div>
+                    <p><%= review.review %></p>
+                    <div class="user">
+                        <img src="/images/customer1.jpg" alt="">
+                        <div class="user-info">
+                            <h3><%= review.author.username %></h3>
+                            <span>happy customer</span>
+                        </div>
+                    </div>
+                    <span class="fas fa-quote-right"></span>
                 </div>
-                <span class="fas fa-quote-right"></span>
-            </section>
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No reviews yet.</p>
+    <% } %>
 </section>

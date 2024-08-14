@@ -28,10 +28,10 @@ const productSchema = mongoose.Schema({
     priceWithDiscount: {
         type: Number
     },
-    review: {
+    reviews: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Review",
-    }
+    }],
 });
 productSchema.pre("save", function(next) {
     this.priceWithDiscount = (this.price * (100 - this.discount)) / 100;

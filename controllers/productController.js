@@ -39,21 +39,30 @@ exports.createProduct = catchAsync(async (req, res) => {
 
 exports.getUserProduct = catchAsync(async(req, res) => {
     const id = req.params.id;
-    const product = await Product.findById(id);
+    const product = await Product.findById(id).populate("reviews");
+    const reviews = product.reviews;
+    console.log("Product:", product);
+    console.log("Reviews:", product.reviews);
     res.status(200).render("product_user", {
         layout: userLayout,
         product,
+        reviews,
     });
 });
 
-exports.getProduct = catchAsync(async(req, res) => {
+
+exports.getProduct = catchAsync(async (req, res) => {
     const id = req.params.id;
-    const product = await Product.findById(id);
-    res.status(200).render("product", {
+    const product = await Product.findById(id).populate('reviews'); 
+    const reviews = product.reviews;
+
+    res.status(200).render('product', {
         layout: basicLayout,
         product,
+        reviews,
     });
 });
+
 
 
 exports.getProducts = catchAsync(async(req, res) => {

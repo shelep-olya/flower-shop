@@ -2,7 +2,8 @@ const express = require("express");
 const viewsController = require("../controllers/viewsController");
 const authController = require("../controllers/authController");
 const isAutheticated = require("../utils/isAuthenticated");
-const productController = require("../controllers/productController")
+const productController = require("../controllers/productController");
+const reviewController = require("../controllers/reviewController");
 const router = express.Router();
 
 router.use(authController.isLoggedIn);
@@ -20,6 +21,7 @@ router.get("/me", authController.protect, viewsController.getMePage);
 
 router.get("/auth/:id", authController.protect, productController.getUserProduct);
 router.get("/:id", isAutheticated, productController.getProduct);
+router.post("/:id/addReview", authController.protect, reviewController.createReview);
 
 
 

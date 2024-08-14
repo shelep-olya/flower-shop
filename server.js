@@ -39,7 +39,7 @@ app.use("/", messageRouter);
 app.use("/users", userRouter);
 app.use("/api", authRouter);
 app.use("/products", productRouter);
-app.use("/reviews", reviewRouter);
+app.use("/", reviewRouter);
 
 const setLayout = (req, res, next) => {
   res.locals.layout = req.user ? userLayout :  basicLayout;

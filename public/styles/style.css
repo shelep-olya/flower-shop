@@ -369,6 +369,7 @@ header .fa-bars{
     font-size: 1.5rem;
     color: #999;
 }
+
 .contact .row{
     display:flex;
     flex-wrap: wrap-reverse;
@@ -376,6 +377,14 @@ header .fa-bars{
     align-items: center;
 }
 .contact .row form{
+    flex: 1 1 40rem;
+    padding:2rem 2.5rem;
+    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
+    border: .1rem solid rgba(0, 0, 0, .1);
+    background: #fff;
+    border-radius: .5rem;
+}
+.add-review{
     flex: 1 1 40rem;
     padding:2rem 2.5rem;
     box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
@@ -403,6 +412,10 @@ header .fa-bars{
     border-color: var(--pink);
 }
 .contact .row form textarea{
+    height: 15rem;
+    resize: none
+}
+.add-review textarea{
     height: 15rem;
     resize: none
 }

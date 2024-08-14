@@ -1,3 +1,4 @@
+const Product = require("../models/productModel");
 const Review = require("../models/reviewModel");
 const catchAsync = require("../utils/catchAsync");
 
@@ -13,14 +14,19 @@ exports.getReviews = catchAsync(async (req, res) => {
 });
 
 exports.createReview = catchAsync(async (req, res) => {
+    const productId = req.params.id;
+    const product = await Product.findById(productId);
+    if (!req.user) {
+        return res.status(401).json({ message: 'You must be logged in to post a review.' });
+    }
     const review = await Review.create({
         review: req.body.review,
-        author: req.body.author,
-        product: req.body.product,
+        author: req.user._id,
+        product: product,
         rating: req.body.rating,
     });
-
-    res.status(201).json(review);
+    res.status(201).redirect(`/auth/${review.product._id}`);
+    console.log(req.user);
 });
 
 exports.deleteReview = catchAsync(async(req, res) => {
