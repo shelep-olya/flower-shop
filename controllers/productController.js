@@ -1,4 +1,5 @@
 const Product = require("../models/productModel");
+const User = require("../models/userModel");
 const catchAsync = require("../utils/catchAsync");
 const multer = require("multer");
 const userLayout = "../views/layouts/admin";
@@ -39,11 +40,18 @@ exports.createProduct = catchAsync(async (req, res) => {
 
 exports.getUserProduct = catchAsync(async(req, res) => {
     const id = req.params.id;
-    const product = await Product.findById(id).populate("reviews");
+    const product = await Product.findById(id)
+        .populate({
+            path: 'reviews',
+            populate: {
+                path: 'author',  
+                select: 'username'
+            }
+        });
+
     const reviews = product.reviews;
-    console.log("Product:", product);
-    console.log("Reviews:", product.reviews);
-    res.status(200).render("product_user", {
+
+    res.status(200).render('product_user', {
         layout: userLayout,
         product,
         reviews,
@@ -53,7 +61,15 @@ exports.getUserProduct = catchAsync(async(req, res) => {
 
 exports.getProduct = catchAsync(async (req, res) => {
     const id = req.params.id;
-    const product = await Product.findById(id).populate('reviews'); 
+    const product = await Product.findById(id)
+        .populate({
+            path: 'reviews',
+            populate: {
+                path: 'author',  
+                select: 'username'
+            }
+        });
+
     const reviews = product.reviews;
 
     res.status(200).render('product', {
@@ -62,7 +78,6 @@ exports.getProduct = catchAsync(async (req, res) => {
         reviews,
     });
 });
-
 
 
 exports.getProducts = catchAsync(async(req, res) => {

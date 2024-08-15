@@ -54,7 +54,7 @@ exports.logout = (req, res) => {
         expires: new Date(Date.now() + 10 * 1000),
         httpOnly: true,
     });
-    res.render('login', {layout: basicLayout});
+    res.redirect("/");
 };
 
 exports.protect = catchAsync(async (req, res, next) => {

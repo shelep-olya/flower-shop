@@ -13,7 +13,4 @@ router.route("/")
     .post(productController.upload, productController.createProduct)
     .get(productController.getProducts);
 
-
-
-
 module.exports = router;

@@ -354,12 +354,20 @@ header .fa-bars{
     align-items: center;
     padding-top: 2rem;
 }
-.review .box-container .box .user img{
+.review .box-container .box .user a.fas.fa-user {
     height: 6rem;
     width: 6rem;
     border-radius: 50%;
-    object-fit:cover;
-    margin-right: 1rem;;
+    object-fit: cover;
+    margin-right: 1rem;
+    display: inline-block;
+    border-color: #333;
+    background-color: #ddd;
+    text-align: center;
+    line-height: 6rem;
+    color: #333; 
+    font-size: 2.5rem; 
+    border: .1rem solid; 
 }
 .review .box-container .box .user h3{
     font-size: 1.5rem;
@@ -422,7 +430,7 @@ header .fa-bars{
 }
 .add-review .box:focus {
     border-color: var(--pink);
-    box-shadow: 0 0 8px rgba(226, 29, 147, 0.712);
+    box-shadow: 0 0 8px rgba(255, 0, 221, 0.2);
     outline: none;
 }
 .add-review .btn {

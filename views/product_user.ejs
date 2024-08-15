@@ -5,11 +5,10 @@
             <span class="discount">-<%= product.discount %>% </span>
             <div class="image">
                 <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
-        <div class="icons">
-            <a href="/users/add-to-favourites/<%= product.id %>" class="fas fa-heart"></a>
-            <a href="/users/add-to-cart/<%= product.id %>" class="cart-btn">add to cart</a>
-        </div>
-
+                <div class="icons">
+                    <a href="/users/add-to-favourites/<%= product.id %>" class="fas fa-heart"></a>
+                    <a href="/users/add-to-cart/<%= product.id %>" class="cart-btn">add to cart</a>
+                </div>
             </div>
             <div class="content">
                 <h3><%= product.name %></h3>
@@ -17,46 +16,49 @@
             </div>
         </div>
     </div>
-<h1 class="heading">add <span>review</span> </h1>
-<form action="/<%= product._id %>/addReview" method="POST" class="add-review">
-    <div class="rating">
-        <input type="hidden" id="rating" name="rating" required>
-        <span class="star" data-value="1">&#9734;</span>
-        <span class="star" data-value="2">&#9734;</span>
-        <span class="star" data-value="3">&#9734;</span>
-        <span class="star" data-value="4">&#9734;</span>
-        <span class="star" data-value="5">&#9734;</span>
-    </div>
-    <textarea name="review" class="box" placeholder="Write your review here..." id="review" required></textarea>
-    <input type="submit" value="Submit Review" class="btn">
-</form>
-    </section>
-    <section class="review" id="review">
-        <h1 class="heading">customers <span>review</span> </h1>
-        <% if (Array.isArray(reviews) && reviews.length > 0) { %>
-            <% reviews.forEach(review => { %>
-                <div class="box-container">
-                    <div class="box">
-                        <div class="stars">
-                            <% for (let i = 0; i < review.rating; i++) { %>
-                                <i class="fas fa-star"></i>
-                            <% } %>
-                        </div>
-                        <p><%= review.review %></p>
-                        <div class="user">
-                            <img src="/images/customer1.jpg" alt="">
-                            <div class="user-info">
-                                <h3><%= review.author.username %></h3>
-                                <span>happy customer</span>
-                            </div>
-                        </div>
-                        <span class="fas fa-quote-right"></span>
+
+    <h1 class="heading">add <span>review</span> </h1>
+    <form action="/<%= product._id %>/addReview" method="POST" class="add-review">
+        <div class="rating">
+            <input type="hidden" id="rating" name="rating" required>
+            <span class="star" data-value="1">&#9734;</span>
+            <span class="star" data-value="2">&#9734;</span>
+            <span class="star" data-value="3">&#9734;</span>
+            <span class="star" data-value="4">&#9734;</span>
+            <span class="star" data-value="5">&#9734;</span>
+        </div>
+        <textarea name="review" class="box" placeholder="Write your review here..." id="review" required></textarea>
+        <input type="submit" value="Submit Review" class="btn">
+    </form>
+</section>
+
+<section class="review" id="review">
+    <h1 class="heading">customers <span>review</span> </h1>
+    <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+        <% reviews.forEach(review => { %>
+            <div class="box-container">
+                <div class="box">
+                    <div class="stars">
+                        <% for (let i = 0; i < review.rating; i++) { %>
+                            <i class="fas fa-star"></i>
+                        <% } %>
                     </div>
+                    <p><%= review.review %></p>
+                    <div class="user">
+                        <!-- Changed empty anchor link to display user icon -->
+                        <a href="#" class="fas fa-user" style="display: block; width: 6rem; height: 6rem; border-radius: 50%; background-color: #f1f1f1; line-height: 6rem; text-align: center;"></a>
+                        <div class="user-info">
+                            <h3><%= review.author.username %></h3>
+                            <span>happy customer</span>
+                        </div>
+                    </div>
+                    <span class="fas fa-quote-right"></span>
                 </div>
-            <% }) %>
-        <% } else { %>
-            <p>No reviews yet.</p>
-        <% } %>
-    </section>
-    
+            </div>
+        <% }) %>
+    <% } else { %>
+        <p>No reviews yet.</p>
+    <% } %>
+</section>
+
 <script src="/scripts/rating.js"></script>

@@ -1,25 +1,29 @@
-<section class="products">
-    <div class="box-container">
-        <div class="box">
-            <span class="discount">-<%= product.discount %>% </span>
-            <div class="image">
-                <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
-                <div class="icons">
-                    <% if (!userAuthenticated) { %>
-                        <div class="auth-alert" id="auth-alert-<%= product._id %>" style="display: none;">
-                            <p>You need to be authenticated to perform this action.</p>
-                        </div>
-                    <% } %>
-                    <a href="#" class="fas fa-heart"></a>
-                    <a href="#" class="cart-btn">add to cart</a>
+<section class="product-review-container">
+    <div class="products" id="products">
+        <h1 class="heading">detail <span>page</span> </h1>
+        <div class="box-container">
+            <div class="box">
+                <span class="discount">-<%= product.discount %>% </span>
+                <div class="image">
+                    <img src="/uploads/<%= product.photo.data %>" alt="<%= product.name %>" >
+                    <div class="icons">
+                        <% if (!userAuthenticated) { %>
+                            <div class="auth-alert" id="auth-alert-<%= product._id %>" style="display: none;">
+                                <p>You need to be authenticated to perform this action.</p>
+                            </div>
+                        <% } %>
+                        <a href="#" class="fas fa-heart"></a>
+                        <a href="#" class="cart-btn">add to cart</a>
+                    </div>
                 </div>
-            </div>
-            <div class="content">
-                <h3><%= product.name %></h3>
-                <div class="price"><%= product.priceWithDiscount %> $<span><%= product.price %>$</span></div>
+                <div class="content">
+                    <h3><%= product.name %></h3>
+                    <div class="price"><%= product.priceWithDiscount %> $<span><%= product.price %>$</span></div>
+                </div>
             </div>
         </div>
     </div>
+
     <section class="review" id="review">
         <h1 class="heading">customers <span>review</span> </h1>
         <% if (Array.isArray(reviews) && reviews.length > 0) { %>
@@ -33,9 +37,9 @@
                         </div>
                         <p><%= review.review %></p>
                         <div class="user">
-                            <img src="/images/customer1.jpg" alt="">
+                            <a href="" class="fas fa-user"></a>
                             <div class="user-info">
-                                <h3><%= review.author.username %></h3>
+                                <h3><%= review.author.username %></h3> 
                                 <span>happy customer</span>
                             </div>
                         </div>
@@ -46,5 +50,6 @@
         <% } else { %>
             <p>No reviews yet.</p>
         <% } %>
+    </section>
+    
 </section>
-<script src="/scripts/auth-alert.js"></script>
