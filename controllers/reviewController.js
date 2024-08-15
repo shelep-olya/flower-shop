@@ -14,19 +14,20 @@ exports.getReviews = catchAsync(async (req, res) => {
 });
 
 exports.createReview = catchAsync(async (req, res) => {
-    const productId = req.params.id;
-    const product = await Product.findById(productId);
-    if (!req.user) {
-        return res.status(401).json({ message: 'You must be logged in to post a review.' });
-    }
-    const review = await Review.create({
-        review: req.body.review,
-        author: req.user._id,
-        product: product,
+    const product = await Product.findById(req.params.id);
+    const review = new Review({
+        author: req.user._id, 
         rating: req.body.rating,
+        review: req.body.review,
+        product: product._id
     });
+
+    await review.save();
+    product.reviews.push(review);
+    await product.save();
+
     res.status(201).redirect(`/auth/${review.product._id}`);
-    console.log(req.user);
+
 });
 
 exports.deleteReview = catchAsync(async(req, res) => {

@@ -19,35 +19,44 @@
     </div>
 <h1 class="heading">add <span>review</span> </h1>
 <form action="/<%= product._id %>/addReview" method="POST" class="add-review">
-    <input type="number" placeholder="rating" class="box" id="rating" name="rating" required>
-    <textarea name="review" class="box" placeholder="review" id="review" required></textarea>
-    <input type="submit" value="send review" class="btn">
+    <div class="rating">
+        <input type="hidden" id="rating" name="rating" required>
+        <span class="star" data-value="1">&#9734;</span>
+        <span class="star" data-value="2">&#9734;</span>
+        <span class="star" data-value="3">&#9734;</span>
+        <span class="star" data-value="4">&#9734;</span>
+        <span class="star" data-value="5">&#9734;</span>
+    </div>
+    <textarea name="review" class="box" placeholder="Write your review here..." id="review" required></textarea>
+    <input type="submit" value="Submit Review" class="btn">
 </form>
     </section>
-<section class="review" id="review">
-    <h1 class="heading">customers <span>review</span> </h1>
-    <% if (Array.isArray(reviews) && reviews.length > 0) { %>
-        <% reviews.forEach(review => { %>
-            <div class="box-container">
-                <div class="box">
-                    <div class="stars">
-                        <% for (let i = 0; i < review.rating; i++) { %>
-                            <i class="fas fa-star"></i>
-                        <% } %>
-                    </div>
-                    <p><%= review.review %></p>
-                    <div class="user">
-                        <img src="/images/customer1.jpg" alt="">
-                        <div class="user-info">
-                            <h3><%= review.author.username %></h3>
-                            <span>happy customer</span>
+    <section class="review" id="review">
+        <h1 class="heading">customers <span>review</span> </h1>
+        <% if (Array.isArray(reviews) && reviews.length > 0) { %>
+            <% reviews.forEach(review => { %>
+                <div class="box-container">
+                    <div class="box">
+                        <div class="stars">
+                            <% for (let i = 0; i < review.rating; i++) { %>
+                                <i class="fas fa-star"></i>
+                            <% } %>
                         </div>
+                        <p><%= review.review %></p>
+                        <div class="user">
+                            <img src="/images/customer1.jpg" alt="">
+                            <div class="user-info">
+                                <h3><%= review.author.username %></h3>
+                                <span>happy customer</span>
+                            </div>
+                        </div>
+                        <span class="fas fa-quote-right"></span>
                     </div>
-                    <span class="fas fa-quote-right"></span>
                 </div>
-            </div>
-        <% }) %>
-    <% } else { %>
-        <p>No reviews yet.</p>
-    <% } %>
-</section>
+            <% }) %>
+        <% } else { %>
+            <p>No reviews yet.</p>
+        <% } %>
+    </section>
+    
+<script src="/scripts/rating.js"></script>

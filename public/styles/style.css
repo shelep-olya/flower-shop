@@ -384,14 +384,63 @@ header .fa-bars{
     background: #fff;
     border-radius: .5rem;
 }
-.add-review{
-    flex: 1 1 40rem;
-    padding:2rem 2.5rem;
-    box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .1);
-    border: .1rem solid rgba(0, 0, 0, .1);
-    background: #fff;
-    border-radius: .5rem;
+.add-review {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+.rating {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+}
+.rating .star {
+    font-size: 30px;
+    cursor: pointer;
+    color: #ddd;
+    transition: color 0.3s ease;
+}
+.rating .star:hover,
+.rating .star.active {
+    color: var(--pink);
+}
+.add-review .box {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+    background-color: #fff;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.add-review .box:focus {
+    border-color: var(--pink);
+    box-shadow: 0 0 8px rgba(226, 29, 147, 0.712);
+    outline: none;
+}
+.add-review .btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--pink);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+.add-review .btn:hover {
+    background-color: #333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, .1);
+}
+
+
 .contact .row .image{
     flex: 1 1 40rem;
 }
@@ -415,10 +464,7 @@ header .fa-bars{
     height: 15rem;
     resize: none
 }
-.add-review textarea{
-    height: 15rem;
-    resize: none
-}
+
 /* FOOTER */
 .footer {
     border-top: .1rem solid rgba(0, 0, 0, .1);
@@ -641,6 +687,17 @@ header .fa-bars{
     }
     .heading{
         font-size: 3rem;
+    }
+}
+@media(max-width:600px){
+    .add-review {
+        padding: 15px;
+        box-shadow: none;
+    }
+
+    .add-review .btn {
+        font-size: 14px;
+        padding: 10px 15px;
     }
 }
 @keyframes fadeIn {
