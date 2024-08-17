@@ -56,5 +56,9 @@ exports.getSignUpPage = (req, res) => {
     res.status(200).render("signup", {layout: basicLayout});
 };
 
+exports.getPaymentPage = (req, res) => {
+    res.status(200).render("payment", {layout: userLayout});
+}
+
 
 

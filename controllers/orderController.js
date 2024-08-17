@@ -1,6 +1,8 @@
 const User = require('../models/userModel');
 const Order = require('../models/orderModel');
 const catchAsync = require('../utils/catchAsync');
+const Stripe = require('stripe');
+const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const Product = require('../models/productModel');
 const userLayout = "../views/layouts/admin";
 exports.addToCart = catchAsync(async (req, res, next) => {
@@ -52,5 +54,17 @@ exports.getOrder = catchAsync(async (req, res, next) => {
     res.render('orders', {
         layout: userLayout,
         products,
+    });
+});
+
+exports.createPayment = catchAsync(async(req, res) => {
+    const { amount } = req.body;
+    const paymentIntent = await stripe.paymentIntents.create({
+        amount: amount * 100,
+        currency: 'usd',
+    });
+
+    res.send({
+        clientSecret: paymentIntent.client_secret,
     });
 });

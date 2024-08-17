@@ -1,7 +1,7 @@
 const express = require("express");
 const productController = require("../controllers/productController");
 const viewsController = require("../controllers/viewsController");
-const authController = require("../controllers/authController");
+const orderController = require("../controllers/orderController");
 const isAuthenticted = require("../utils/isAuthenticated");
 
 
@@ -12,5 +12,6 @@ router.get('/', viewsController.getProductsPage);
 router.route("/")
     .post(productController.upload, productController.createProduct)
     .get(productController.getProducts);
+
 
 module.exports = router;

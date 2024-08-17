@@ -4,7 +4,11 @@ const authController = require("../controllers/authController");
 const isAutheticated = require("../utils/isAuthenticated");
 const productController = require("../controllers/productController");
 const reviewController = require("../controllers/reviewController");
+const orderController = require("../controllers/orderController");
 const router = express.Router();
+
+
+router.get("/payment", viewsController.getPaymentPage);
 
 router.use(authController.isLoggedIn);
 router.get("/", viewsController.getMainPage);
@@ -23,6 +27,6 @@ router.get("/auth/:id", authController.protect, productController.getUserProduct
 router.get("/:id", isAutheticated, productController.getProduct);
 router.post("/:id/addReview", authController.protect, reviewController.createReview);
 
-
+router.post("/create-payment-intent", orderController.createPayment);
 
 module.exports = router;
